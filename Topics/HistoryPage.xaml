@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="Topics.HistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Topics"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="#FF323232">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Margin="0,55,0,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+            <Grid Height="4518" Width="1920">
+                <Grid Height="880" Margin="50,50,50,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <Charting:Chart x:Name="temperature" Margin="0,60,0,0" FontSize="14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
+                        <Charting:LineSeries Margin="0,-44,-2,-26" Title="" IndependentValuePath="time" DependentValuePath="temperature" />
+                    </Charting:Chart>
+                    <TextBlock x:Name="textBlock" Margin="800,0,797,0" TextWrapping="Wrap" Text="溫度" FontSize="40" RenderTransformOrigin="0.268,0.708" TextAlignment="Center" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" FontWeight="Bold" Foreground="#FF4B64A8"/>
+                </Grid>
+                <Grid Height="880" Margin="50,980,50,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <Charting:Chart x:Name="humidity" Margin="0,60,0,0" FontSize="14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
+                        <Charting:LineSeries Margin="0,-44,-2,-26" Title="" IndependentValuePath="time" DependentValuePath="humidity"/>
+                    </Charting:Chart>
+                    <TextBlock x:Name="textBlock1" Margin="800,0,797,0" TextWrapping="Wrap" Text="濕度" FontSize="40" RenderTransformOrigin="0.268,0.708" TextAlignment="Center" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" FontWeight="Bold" Foreground="#FF54A069"/>
+                </Grid>
+                <Grid Height="880" Margin="50,1910,50,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <Charting:Chart x:Name="SoilMoisture" Margin="0,60,0,0" FontSize="14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
+                        <Charting:LineSeries Margin="0,-44,-2,-26" Title="" IndependentValuePath="time" DependentValuePath="SoilMoisture"/>
+                    </Charting:Chart>
+                    <TextBlock x:Name="textBlock2" Margin="800,0,797,0" TextWrapping="Wrap" Text="泥土濕度" FontSize="40" RenderTransformOrigin="0.268,0.708" TextAlignment="Center" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" FontWeight="Bold" Foreground="#FFB85656"/>
+                </Grid>
+                <Grid Height="880" Margin="50,3179,50,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <Charting:Chart x:Name="brightness" Margin="0,60,0,0" FontSize="14" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
+                        <Charting:LineSeries Margin="0,-44,-2,-26" Title="" IndependentValuePath="time" DependentValuePath="brightness"/>
+                    </Charting:Chart>
+                    <TextBlock x:Name="textBlock3" Margin="800,0,797,0" TextWrapping="Wrap" Text="亮度" FontSize="40" RenderTransformOrigin="0.268,0.708" TextAlignment="Center" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" FontWeight="Bold" Foreground="#FFD4D17D"/>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        <AppBarButton x:Name="appBarButton" HorizontalAlignment="Right" Height="54" Icon="Home" Label="" Width="82" />
+        <Button x:Name="theDayBeforeYesterdayButton" Content="前天" Height="34" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,1702,0" Width="218" BorderBrush="#FF60E072" Foreground="#FF60E072" Click="theDayBeforeYesterdayButton_Click"/>
+        <Button x:Name="yesterdayButton" Content="昨天" Height="34" Margin="0,0,1478,0" VerticalAlignment="Top" RenderTransformOrigin="-1.33,-87.741" HorizontalAlignment="Right" Width="219" BorderBrush="#FF3A72AA" Foreground="#FF3A72AA" Click="yesterdayButton_Click"/>
+        <Button x:Name="dayButton" Content="今天" Height="34" Margin="0,0,1255,0" VerticalAlignment="Top" RenderTransformOrigin="-1.33,-87.741" HorizontalAlignment="Right" Width="218" Background="#33000000" BorderBrush="#FFC94141" Foreground="#FFC94141" Click="dayButton_Click"/>
+
+
+    </Grid>
+</Page>

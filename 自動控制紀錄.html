@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+    .c_div {
+    position: static ;
+    background-color: #66ccff;
+    width: 200px;
+    border: 5px solid #808080;
+    padding: 2px;
+    margin: 25px;
+    }
+    </style>
+  </head>
+  
+  <head>
+<style>
+#header {
+    background-color:#4169e1;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:#008b8b;
+    color:white;
+    height:1000px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px;	 	 
+}
+#footer {
+    background-color:#4169e1;
+    color:white;
+    clear:both;
+    text-align:center;
+   padding:2px;	
+}
+
+
+</style>
+</head>
+
+  
+  <body>
+  
+  <div id="header">
+<h1>雲端自動化農場</h1>
+</div>
+
+<div id="nav">
+<h3>雲端數據<br></h3>
+</div>
+
+<div id="section">
+<h2>數值</h2>
+
+ <button onclick="button_Click()">自動控制紀錄</button><br>
+ <h2>自動澆水</h2><br>
+    <div id="d1" class="c_div"></div><br>
+    <h2>自動農藥噴灑</h2><br>
+    <div id="d2" class="c_div"></div><br>
+    <h2>自動光照</h2><br>
+    <div id="d3" class="c_div"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+    <script>
+    const TOPIC2 = "tw/recordControl_qa/";
+    const TOPIC = "tw/recordControl/";
+    var client = false;
+
+    // 用戶端成功連接 broker 時...
+    function onConnect() {
+    // 確認連接後，才能訂閱主題
+    console.log("onConnect then subscribe topic");
+    client.subscribe(TOPIC2 + "#");
+    }
+    // 收到訊息時...
+    function onMessageArrived(message) {
+    console.log("onMessageArrived:"+message.payloadString);
+    var text=message.payloadString;
+    var json=JSON.parse(text);
+    document.getElementById("d1").innerHTML = json.wateringButton.join('<br>');
+    document.getElementById("d2").innerHTML = json.pesticideButton.join('<br>');
+    document.getElementById("d3").innerHTML = json.illuminationButton.join('<br>');
+    
+    }
+    
+    // 發佈訊息
+    function button_Click() {    
+    var payload = "1";
+    var message = new Paho.MQTT.Message(payload);
+    message.destinationName = TOPIC; 
+    client.send(message);
+    
+    }
+    
+    function init() {    
+    // 建立 MQTT 用戶端實體. 你必須正確寫上你設置的埠號.
+    // ClientId 可以自行指定，提供 MQTT broker 認證用
+    client = new Paho.MQTT.Client("wss://iot.eclipse.org:443/ws", "myClientId");
+
+    // 指定收到訊息時的處理動作
+    client.onMessageArrived = onMessageArrived;
+
+    // 連接 MQTT broker
+    client.connect({onSuccess:onConnect});
+    }
+    
+    window.addEventListener('load', init, false);
+    
+    </script>
+
+
+</div>
+
+<div id="footer">
+<h3>knvs</h3>
+</div> 
+  </body>  
+</html>
+
+

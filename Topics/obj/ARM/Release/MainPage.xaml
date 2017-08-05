@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Topics.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Topics"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid BorderThickness="0" Background="#FF323232" >
+        <Grid Margin="4,0,996,0" Width="960" d:LayoutOverrides="TopPosition, BottomPosition">
+            <Grid Margin="10,0,0,600" HorizontalAlignment="Left" Width="480" Height="480">
+                <Ellipse Margin="50" Stroke="Black" d:LayoutOverrides="TopPosition, BottomPosition" Fill="#FF4B64A8" StrokeThickness="0"/>
+                <Ellipse Fill="#FF323232" Margin="90" Stroke="Black" StrokeThickness="0"/>
+                <Grid Margin="135">
+                    <TextBlock x:ConnectionId='8' x:Name="textBlock1" Margin="0,100,0,0" TextWrapping="Wrap" Text="unll" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FF4B64A8" TextAlignment="Center"/>
+                    <TextBlock x:ConnectionId='9' x:Name="textBlock" Margin="0,0,0,150" TextWrapping="Wrap" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FF4B64A8"  Text="溫度" TextAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Margin="0,600,0,0" HorizontalAlignment="Left" Width="480" Height="480" d:LayoutOverrides="HorizontalAlignment">
+                <Ellipse Fill="#FFB85656" Stroke="Black" Margin="50" StrokeThickness="0"/>
+                <Ellipse Fill="#FF323232" Margin="90" Stroke="Black" StrokeThickness="0"/>
+                <Grid Margin="135" d:LayoutOverrides="TopPosition, BottomPosition">
+                    <TextBlock x:ConnectionId='6' x:Name="textBlock2" Margin="0,0,0,150" TextWrapping="Wrap" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FFB85656"  Text="泥土濕度" TextAlignment="Center"/>
+                    <TextBlock x:ConnectionId='7' x:Name="textBlock7"  Margin="0,100,0,0" TextWrapping="Wrap" Text="unll" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FFB85656" TextAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Margin="480,0,0,600" HorizontalAlignment="Left" Width="480" Height="480">
+                <Ellipse Fill="#FF54A069" Margin="50" Stroke="Black" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" StrokeThickness="0"/>
+                <Ellipse Fill="#FF323232" Margin="90" Stroke="Black" d:LayoutOverrides="TopPosition, BottomPosition" StrokeThickness="0"/>
+                <Grid Margin="135" d:LayoutOverrides="TopPosition, BottomPosition">
+                    <TextBlock x:ConnectionId='4' x:Name="textBlock4" Margin="0,0,0,150" TextWrapping="Wrap" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FF54A069"  Text="濕度" TextAlignment="Center"/>
+                    <TextBlock x:ConnectionId='5' x:Name="textBlock5"  Margin="0,100,0,0" TextWrapping="Wrap" Text="unll" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FF54A069" TextAlignment="Center"/>
+                </Grid>
+            </Grid>
+            <Grid Margin="480,600,0,0" HorizontalAlignment="Left" Width="480" Height="480">
+                <Ellipse Fill="#FFD4D17D" Margin="50" Stroke="Black" d:LayoutOverrides="LeftPosition, RightPosition" StrokeThickness="0"/>
+                <Ellipse Fill="#FF323232" Margin="90" Stroke="Black" d:LayoutOverrides="LeftPosition, RightPosition" StrokeThickness="0"/>
+                <Grid Margin="135" d:LayoutOverrides="LeftPosition, RightPosition">
+                    <TextBlock x:ConnectionId='2' x:Name="textBlock3" Margin="0,0,0,150" TextWrapping="Wrap" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FFD4D17D"  Text="亮度" TextAlignment="Center"/>
+                    <TextBlock x:ConnectionId='3' x:Name="textBlock6" Margin="0,100,0,0" TextWrapping="Wrap" Text="unll" d:LayoutOverrides="Width, TopPosition, BottomPosition" FontSize="48" Foreground="#FFD4D17D" TextAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <AppBarButton x:ConnectionId='1' x:Name="appBarButton" HorizontalAlignment="Right" Height="54" Icon="Calendar" Label="" Width="82"                           />
+    </Grid>
+</Page>
+

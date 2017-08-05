@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+</head>
+
+<style>
+.switch {
+position: relative;
+display: inline-block;
+width: 60px;
+height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #2196F3;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+</style>
+
+<head>
+<style>
+#header {
+    background-color:#4169e1;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:#008b8b;
+    color:white;
+    height:1000px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px;	 	 
+}
+
+
+
+</style>
+</head>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+<script>
+const TOPIC = "tw/Watering/";
+const TOPIC2 = "tw/illumination/";
+const TOPIC3 ="tw/Temperature/";
+const TOPIC4 ="tw/Humidity/";
+const TOPIC5 ="tw/soilMoisture/";
+const TOPIC6 ="tw/luminosity/";
+const TOPIC7 ="tw/WateringAoto/";
+const TOPIC8 ="tw/illuminationAoto/";
+const TOPIC9 ="tw/WateringAoto_qa/";
+const TOPIC10 ="tw/illuminationAoto_qa/";
+const TOPIC11 ="tw/pesticide/";
+
+
+
+var client = false;
+
+// 用戶端成功連接 broker 時...
+function onConnect() {
+// 確認連接後，才能訂閱主題
+console.log("onConnect then subscribe topic");
+client.subscribe(TOPIC + "#");
+client.subscribe(TOPIC2 + "#");
+client.subscribe(TOPIC3 + "#");
+client.subscribe(TOPIC4 + "#");
+client.subscribe(TOPIC5 + "#");
+client.subscribe(TOPIC6 + "#");
+client.subscribe(TOPIC9 + "#");
+client.subscribe(TOPIC10 + "#");
+}
+
+// 收到訊息時...
+function onMessageArrived(message) {
+if(message.destinationName=="tw/Watering/")
+{
+console.log("tw/Watering/:"+message.payloadString);
+}
+else if(message.destinationName=="tw/illumination/")
+{
+console.log("tw/illumination/"+message.payloadString);
+}
+else if(message.destinationName=="tw/Temperature/")
+{
+document.getElementById("luminosity").innerHTML = "溫度:" +message.payloadString +"℃";
+}
+else if(message.destinationName=="tw/Humidity/")
+{
+document.getElementById("soilMoisture").innerHTML = "濕度:" +message.payloadString+"%RH";
+}
+else if(message.destinationName=="tw/soilMoisture/")
+{
+document.getElementById("Temperature").innerHTML = "泥土濕度:" +message.payloadString;
+}
+else if(message.destinationName=="tw/luminosity/")
+{
+document.getElementById("Humidity").innerHTML = "亮度:" +message.payloadString;
+}
+else if(message.destinationName=="tw/WateringAoto_qa/")
+{
+if(message.payloadString==0)
+{
+checkboxid1.checked=false;
+}
+else
+{
+checkboxid1.checked=true;
+}
+}
+else if(message.destinationName=="tw/illuminationAoto_qa/")
+{
+if(message.payloadString==0)
+{
+checkboxid2.checked=false;
+}
+else
+{
+checkboxid2.checked=true;
+}
+}
+
+
+//console.log(message.destinationName+ ":" +message.payloadString);    
+
+}
+
+// 發佈訊息
+function publish_message() {
+
+var payload = "1";
+var message = new Paho.MQTT.Message(payload);
+message.destinationName = TOPIC; 
+client.send(message);
+
+}
+function publish_message2() {
+
+var payload = "1";
+var message = new Paho.MQTT.Message(payload);
+message.destinationName = TOPIC2 ;
+client.send(message);
+
+}
+
+function publish_message3() {
+
+var payload = "1";
+var message = new Paho.MQTT.Message(payload);
+message.destinationName = TOPIC11 ;
+client.send(message);
+
+}
+
+function init() {
+
+document.getElementById("mqtt_pub").addEventListener('click', publish_message);
+document.getElementById("mqtt_pub2").addEventListener('click', publish_message2);
+document.getElementById("mqtt_pub3").addEventListener('click', publish_message3);
+// 建立 MQTT 用戶端實體. 你必須正確寫上你設置的埠號.
+// ClientId 可以自行指定，提供 MQTT broker 認證用
+client = new Paho.MQTT.Client("wss://iot.eclipse.org:443/ws", "myClientId");
+
+// 指定收到訊息時的處理動作
+client.onMessageArrived = onMessageArrived;
+
+// 連接 MQTT broker
+client.connect({onSuccess:onConnect});
+
+
+}
+
+window.addEventListener('load', init, false);
+//document.addEventListener('DOMContentLoaded', init, false);
+
+function checkbox1(){
+if(checkboxid1.checked==false)
+{
+var message = new Paho.MQTT.Message("0");
+message.destinationName = TOPIC7 //;+ "text";
+client.send(message);
+}
+
+else
+{
+var message = new Paho.MQTT.Message("1");
+message.destinationName = TOPIC7 //;+ "text";
+client.send(message);
+}
+
+}
+
+function checkbox2(){
+if(checkboxid2.checked==false)
+{
+var message = new Paho.MQTT.Message("0");
+message.destinationName = TOPIC8 //;+ "text";
+client.send(message);
+}
+else
+{
+var message = new Paho.MQTT.Message("1");
+message.destinationName = TOPIC8 //;+ "text";
+client.send(message);
+}
+
+}
+
+</script>
+
+<body>
+
+<div>
+
+ <div id="header">
+<h1>雲端自動化農場</h1>
+</div>
+
+<div id="nav">
+<h3>手動控制<br></h3>
+</div>
+
+<div id="section">
+<h2>控制項</h2>
+<p>
+<div>
+
+<button id="mqtt_pub">手動澆水</button>
+<button id="mqtt_pub2">手動光照</button>
+<button id="mqtt_pub3">農藥噴灑</button>
+
+
+</div>
+
+<div>
+<label class="switch">
+<input type="checkbox" onclick="checkbox1()" id="checkboxid1" >
+<div class="slider round"></div>
+</label>
+
+<label class="switch">
+<input type="checkbox" onclick="checkbox2()" id="checkboxid2" >
+<div class="slider round"></div>
+</label>
+</div>
+
+<p id="luminosity"></p>    <!--亮度-->
+<p id="soilMoisture"></p>  <!--泥土濕度-->
+<p id="Temperature"></p>   <!--溫度-->
+<p id="Humidity"></p>      <!--濕度-->
+
+</body>
+</html>
